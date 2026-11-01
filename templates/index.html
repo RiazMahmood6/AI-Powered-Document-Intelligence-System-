@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document Desk — invoice intake and review</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app/app.css') }}">
+</head>
+<body>
+  {# The React app (source in frontend/, built into static/app/) mounts here. #}
+  <div id="root" data-auth-required="{{ 'true' if auth_required else 'false' }}"></div>
+  <noscript>This application needs JavaScript enabled.</noscript>
+  <script type="module" src="{{ url_for('static', filename='app/app.js') }}"></script>
+</body>
+</html>

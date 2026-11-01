@@ -1,0 +1,20 @@
+Flask>=3.0,<4
+Flask-SQLAlchemy>=3.1,<4
+python-dotenv>=1.0
+PyMuPDF>=1.24
+Pillow>=10.3
+pytesseract>=0.3.10
+pandas>=2.1
+openpyxl>=3.1
+xlrd>=2.0.1
+numpy>=1.26
+scikit-learn>=1.4
+python-dateutil>=2.9
+openai>=1.40            # OpenAI and Groq (Groq is OpenAI-compatible)
+# anthropic>=0.40        # only if LLM_PROVIDER=anthropic
+gunicorn>=22.0
+# Optional: PostgreSQL driver (set DATABASE_URL=postgresql+psycopg2://...)
+# psycopg2-binary>=2.9
+# Optional: neural embeddings (set EMBEDDING_BACKEND=sbert)
+# sentence-transformers>=3.0
+pytest>=8.0

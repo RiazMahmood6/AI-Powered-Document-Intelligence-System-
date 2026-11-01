@@ -1,0 +1,26 @@
+flowchart TB
+  subgraph Browser
+    UI["React UI<br/>(frontend/ → static/app)"]
+  end
+  subgraph Flask["Flask app (app.py)"]
+    API["REST API<br/>upload · status · results · search<br/>corrections · reprocess · crosscheck"]
+    Q["Background job queue<br/>(ThreadPool)"]
+  end
+  subgraph Pipeline["Processing pipeline (pipeline.py)"]
+    P1["1 Parse<br/>digital PDF text · OCR (Tesseract)<br/>images/TIFF · XLSX/XLS/CSV"]
+    P2["2 Extract<br/>rules → LLM (OpenAI/Groq)<br/>→ grounding check"]
+    P3["3 Validate<br/>missing · numeric · duplicates<br/>subtotal/tax/lines/total"]
+    P4["4 Index<br/>page embeddings"]
+  end
+  FS[("uploads/<br/>original files")]
+  DB[("SQL database<br/>SQLite / PostgreSQL")]
+  LLM{{"LLM API<br/>only when rules are weak"}}
+  UI -- "multipart upload, polling, PATCH, search" --> API
+  API -- "type + magic-byte + size checks, sha256" --> FS
+  API -- "Document: queued" --> DB
+  API -- "submit job" --> Q
+  Q --> P1
+  P1 --> P2 --> P3 --> P4
+  P2 <-.-> LLM
+  P4 -- "pages · invoices · issues · events (each stage logged)" --> DB
+  FS --> P1

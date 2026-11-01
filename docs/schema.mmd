@@ -1,0 +1,70 @@
+erDiagram
+  documents ||--o{ extracted_text : "has pages"
+  documents ||--o{ invoices : "yields"
+  documents ||--o{ processing_events : "audit trail"
+  invoices ||--o{ validation_issues : "has"
+  documents {
+    string id PK
+    string filename
+    string stored_path
+    string file_type
+    string sha256 "indexed, file-level duplicate check"
+    string status "queued|processing|completed|needs_review|failed|duplicate"
+    int page_count
+    int attempts
+    text error
+    int progress
+    int processing_ms
+    datetime created_at
+  }
+  extracted_text {
+    int id PK
+    string document_id FK
+    int page_no
+    string label "sheet name"
+    string source "digital|ocr|sheet"
+    float ocr_confidence
+    text text
+    blob embedding "float32 vector"
+    string embedding_model
+  }
+  invoices {
+    int id PK
+    string document_id FK
+    string source_kind "document|spreadsheet"
+    string source_pages
+    string extraction_method
+    string invoice_number
+    string invoice_number_norm "indexed"
+    string invoice_date "ISO yyyy-mm-dd"
+    string supplier_name
+    string supplier_norm "indexed"
+    string customer_name
+    numeric subtotal
+    numeric tax
+    numeric total
+    string currency
+    json line_items
+    json field_confidence
+    json parse_errors
+    json corrected_fields
+    string review_status "ok|needs_review|approved"
+  }
+  validation_issues {
+    int id PK
+    int invoice_id FK
+    string code "TOTAL_MISMATCH, DUPLICATE_INVOICE ..."
+    string severity "error|warning"
+    string field
+    text message
+  }
+  processing_events {
+    int id PK
+    string document_id FK
+    int invoice_id
+    string stage "upload|parse|extract|validate|index|manual_correction"
+    string status
+    text message
+    int duration_ms
+    datetime created_at
+  }

@@ -1,0 +1,49 @@
+{
+  "tag": "hybrid (rules only)",
+  "files": 112,
+  "valid_files": 106,
+  "document_success_rate_pct": 100.0,
+  "document_failure_rate_pct": 0.0,
+  "corrupted_files_failed_cleanly_pct": 100.0,
+  "field_accuracy_pct": {
+    "invoice_number": 100.0,
+    "invoice_date": 100.0,
+    "supplier_name": 98.1,
+    "customer_name": 92.5,
+    "subtotal": 100.0,
+    "tax": 99.1,
+    "total": 100.0,
+    "currency": 99.1
+  },
+  "overall_field_accuracy_pct": 98.6,
+  "invoices_fully_correct_pct": 91.5,
+  "line_item_amount_accuracy_pct": 93.5,
+  "hallucination_rate_pct": 0.0,
+  "injected_errors_flagged_pct": 100.0,
+  "accuracy_by_source_pct": {
+    "badmath": 100.0,
+    "csv": 100.0,
+    "img": 100.0,
+    "noisy": 85.0,
+    "pdf": 100.0,
+    "scan": 100.0,
+    "xlsx": 100.0
+  },
+  "processing_ms": {
+    "mean": 355,
+    "median": 26,
+    "p95": 1062,
+    "max": 1178
+  },
+  "processing_ms_mean_by_source": {
+    "badmath": 27,
+    "csv": 22,
+    "img": 930,
+    "noisy": 974,
+    "pdf": 20,
+    "scan": 827,
+    "xlsx": 28
+  },
+  "failures": [],
+  "misses": []
+}
